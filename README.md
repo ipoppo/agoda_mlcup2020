@@ -2,7 +2,10 @@
 
 ## Hello World!
 
-## Resource
+## Resources
 
-- Libratus
+- [Pluribus](https://github.com/whatsdis/pluribus) poker AI sucessor of [Libratus](https://github.com/mp3242/coms4995-finalproj)
+  - [Paper /w paywall 😂](https://science.sciencemag.org/content/365/6456/885.full)
+  - [Facebook AI Article](https://ai.facebook.com/blog/pluribus-first-ai-to-beat-pros-in-6-player-poker/)
+  - [r/reinforcementlearning](https://www.reddit.com/r/reinforcementlearning/comments/cdwzp3/pluribus_superhuman_ai_for_multiplayer_poker/)
 - AlphaGo Zero
