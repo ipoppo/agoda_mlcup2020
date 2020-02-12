@@ -5,7 +5,7 @@ from bidgame.framework.game import Game, ValueDist
 from bidgame.framework.state import State, Hotel, Bids, Info
 from bidgame.framework.gui import GameGui
 
-from .reinforcement import StateAction, Environment
+from .reinforcement import StateAction, StateKeeper
 
 # import logging
 # from copy import deepcopy
@@ -41,7 +41,7 @@ def play_single_game_debug(
             return end_result, game.state_action()
 
 
-class DebugGame(Game, Environment[State, int]):
+class DebugGame(Game, StateKeeper[State, int]):
     def __init__(
         self,
         dists: ValueDist = ValueDist(),
@@ -51,6 +51,9 @@ class DebugGame(Game, Environment[State, int]):
         game_gui: GameGui = None,
     ):
         super().__init__(dists, hotel_stars, hotel_profit, initial_state, game_gui)
+        self.init_keeper()
+
+    def init_keeper(self):
         self.sa = []
 
     def start(self) -> Tuple[Info, Info]:

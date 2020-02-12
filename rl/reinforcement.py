@@ -5,9 +5,15 @@ from bidgame.framework.state import PrettyRepr
 
 S = TypeVar('S')
 A = TypeVar('A')
+E = TypeVar('E')
 
 
 class StateAction(Generic[S, A], NamedTuple, PrettyRepr):
+    """
+    - state: The current game state
+    - action: Action that agent taken
+    - next_state: The state of the game after next time step. None if it is terminate state.
+    """
     state: S
     action: A
     next_state: S
@@ -19,7 +25,14 @@ class StateAction(Generic[S, A], NamedTuple, PrettyRepr):
             return StateAction(self.state, self.action, next_state)
 
 
-class Environment(Generic[S, A]):
+class StateKeeper(Generic[S, A]):
+    """
+    Facilitate stateful to store series of StateAction[S, A]
+    """
+
+    def init_keeper(self):
+        pass
+
     def update(self, a0: A, s1: S):
         pass
 
@@ -27,9 +40,9 @@ class Environment(Generic[S, A]):
         pass
 
 
-class Critic(Generic[S, A]):
-    def state_action_reward(self, end_result: float, sa_list: List[StateAction[S, A]]) -> List[float]:
+class Critic(Generic[S, A, E]):
+    def state_action_reward(self, end_result: E, sa_list: List[StateAction[S, A]]) -> List[float]:
         return [self._reward(sa.state, sa.next_state, sa.action, end_result) for sa in sa_list]
 
-    def _reward(self, s0: S, s1: S, a: A, end_result: float) -> float:
+    def _reward(self, s0: S, s1: S, a: A, end_result: E) -> float:
         pass
