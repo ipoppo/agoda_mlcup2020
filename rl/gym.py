@@ -24,7 +24,7 @@ def play_single_game_debug(
       :param players: 2 agents to play against each other
       :param render: if should use the visual GUI
       :param dists: random distributions for the random elements in the game
-      :return: result of the game
+      :return: result of the game, series of state-action pair trajector
       """
 
     players = (players1, players2)
@@ -56,7 +56,7 @@ class DebugGame(Game, Environment[State, int]):
     def start(self) -> Tuple[Info, Info]:
         self._log(f"Start game: {self.state}")
         info = self._build_info()
-        self.update(None, info[0].state)
+        self.update(None, info[0])
         return info
 
     def step(self, bid0: int, bid1: int) -> Tuple[Info, Info]:
@@ -105,7 +105,7 @@ class DebugGame(Game, Environment[State, int]):
                 )
 
         info = self._build_info(realized_bids)
-        self.update(bid0, info[0].state)
+        self.update(bid0, info[0])
         return info
 
     def update(self, a0: int, s1: State):

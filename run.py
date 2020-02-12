@@ -1,4 +1,4 @@
-from agent.trivial import ConstantAgent, PercentAgent
+from agent.trivial import ConstantAgent, PercentAgent, SimpleCritic
 from bidgame.example_agents import SmartAgent
 from bidgame.framework.agent import HumanAgent
 from bidgame.framework.playing import play_series
@@ -18,10 +18,18 @@ def main():
     # print(result_against_smart)
     # print(result_against_smart.iloc[-1])
 
-    end_result, sa = play_single_game_debug(PercentAgent(), SmartAgent())
+    end_result, sa = play_single_game_debug(ConstantAgent(), SmartAgent())
 
+    print('RESULT')
     print(end_result)
+    print('SA')
     print(sa)
+
+    critic = SimpleCritic()
+    rewards = critic.state_action_reward(end_result, sa)
+
+    print('REWARDS')
+    print(rewards)
 
 
 if __name__ == "__main__":

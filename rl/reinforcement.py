@@ -24,6 +24,12 @@ class Environment(Generic[S, A]):
         pass
 
 
-class RewardShaper(Environment[S, A]):
-    def state_action_reward(self, sa: List[StateAction[S, A]]) -> List[float]:
+class Critic(Generic[S, A]):
+    def state_action_reward(self, end_result: float, sa_list: List[StateAction[S, A]]) -> List[float]:
+        reward_list = self._state_action_reward(end_result, sa_list)
+        error_txt = "Reward function should have returned same length as State Action list"
+        assert len(reward_list) == len(sa_list), error_txt
+        return reward_list
+
+    def _state_action_reward(self, end_result: float, sa_list: List[StateAction[S, A]]) -> List[float]:
         pass
