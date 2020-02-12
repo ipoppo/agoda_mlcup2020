@@ -1,4 +1,5 @@
-from agent.trivial import ConstantAgent, PercentAgent, SimpleCritic
+from agent.trivial import ConstantAgent, PercentAgent
+from agent.critic import SimpleCritic
 from bidgame.example_agents import SmartAgent
 from bidgame.framework.agent import HumanAgent
 from bidgame.framework.playing import play_series
