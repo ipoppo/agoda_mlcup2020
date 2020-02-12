@@ -1,19 +1,22 @@
 from __future__ import annotations
 from typing import TypeVar, Generic, Any, NamedTuple, List
 
+from bidgame.framework.state import PrettyRepr
+
 S = TypeVar('S')
 A = TypeVar('A')
 
 
-class StateAction(Generic[S, A], NamedTuple):
+class StateAction(Generic[S, A], NamedTuple, PrettyRepr):
     state: S
     action: A
+    next_state: S
 
-    def copy(self, override_action: A) -> StateAction[S, A]:
+    def updateSA(self, override_action: A = None, next_state: S = None) -> StateAction[S, A]:
         if override_action is not None:
-            return StateAction(self.state, override_action)
+            return StateAction(self.state, override_action, next_state)
         else:
-            return StateAction(self.state, self.action)
+            return StateAction(self.state, self.action, next_state)
 
 
 class Environment(Generic[S, A]):
@@ -26,10 +29,7 @@ class Environment(Generic[S, A]):
 
 class Critic(Generic[S, A]):
     def state_action_reward(self, end_result: float, sa_list: List[StateAction[S, A]]) -> List[float]:
-        reward_list = self._state_action_reward(end_result, sa_list)
-        error_txt = "Reward function should have returned same length as State Action list"
-        assert len(reward_list) == len(sa_list), error_txt
-        return reward_list
+        return [self._reward(sa.state, sa.next_state, sa.action, end_result) for sa in sa_list]
 
-    def _state_action_reward(self, end_result: float, sa_list: List[StateAction[S, A]]) -> List[float]:
+    def _reward(self, s0: S, s1: S, a: A, end_result: float) -> float:
         pass

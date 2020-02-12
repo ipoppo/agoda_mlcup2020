@@ -110,22 +110,11 @@ class DebugGame(Game, Environment[State, int]):
 
     def update(self, a0: int, s1: State):
         if len(self.sa) > 0 and a0 is not None:
-            self.sa[-1] = self.sa[-1].copy(a0)
-        self.sa.append(StateAction(state=s1, action=None))
+            self.sa[-1] = self.sa[-1].updateSA(a0, s1)
+        self.sa.append(StateAction(state=s1, action=None, next_state=None))
 
     def state_action(self) -> List[StateAction]:
         return self.sa
-
-
-def _random_choice_from(values, size=None):
-    if isinstance(values, int):
-        return values
-    elif isinstance(values, (list, tuple, float, np.ndarray)):
-        return np.random.choice(values, size=size)
-    else:
-        raise ValueError(
-            f"values should be int or array-like, got {type(values)} - {values}"
-        )
 
 
 def _to_int_or_zero(x):
