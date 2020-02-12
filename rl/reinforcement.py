@@ -10,9 +10,9 @@ E = TypeVar('E')
 
 class StateAction(Generic[S, A], NamedTuple, PrettyRepr):
     """
-    - state: The current game state
-    - action: Action that agent taken
-    - next_state: The state of the game after next time step. None if it is terminate state.
+    - state: S - The current game state
+    - action: A - Action that agent taken
+    - next_state: S - The state of the game after next time step. None if it is terminate state.
     """
     state: S
     action: A
@@ -42,7 +42,18 @@ class StateKeeper(Generic[S, A]):
 
 class Critic(Generic[S, A, E]):
     def state_action_reward(self, end_result: E, sa_list: List[StateAction[S, A]]) -> List[float]:
+        """
+        - end_result: E - End game response
+        - sa_list: List[StateAction[S, A]] - List of state transition usually work with StateKeeper.state_action
+        """
         return [self._reward(sa.state, sa.next_state, sa.action, end_result) for sa in sa_list]
 
     def _reward(self, s0: S, s1: S, a: A, end_result: E) -> float:
+        """
+        Produce reward base on (s0,a) -> (s1, r)
+        - s0: S - Start state
+        - s1: S - Next state
+        - a: A - Action taken in a step
+        - end_result: E - End game response. Ususally use when s1 is None (aka terminated state).
+        """
         pass
