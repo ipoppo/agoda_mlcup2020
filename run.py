@@ -1,5 +1,5 @@
 from agent.trivial import ConstantAgent, PercentAgent
-from agent.critic import SimpleCritic
+from agent.critic import SimpleScore, WeightedStarScore
 from bidgame.example_agents import SmartAgent
 from bidgame.framework.agent import HumanAgent
 from bidgame.framework.playing import play_series
@@ -19,14 +19,12 @@ def main():
     # print(result_against_smart)
     # print(result_against_smart.iloc[-1])
 
-    end_result, sa = play_single_game_debug(ConstantAgent(), SmartAgent())
+    end_result, sa = play_single_game_debug(PercentAgent(), SmartAgent())
 
-    print('RESULT')
+    print('END RESULT')
     print(end_result)
-    print('SA')
-    print(sa)
 
-    critic = SimpleCritic()
+    critic = WeightedStarScore(end_result_weight=0.9, star_weight=0.1)
     rewards = critic.state_action_reward(end_result, sa)
 
     print('REWARDS')

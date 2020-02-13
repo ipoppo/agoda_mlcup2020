@@ -20,5 +20,5 @@ class ConstantAgent(BaseAgent):
 
 class PercentAgent(BaseAgent):
     def step(self, info: Info) -> int:
-        ans = info.state.money[0]/4
+        ans = info.state.money[0]/2
         return int(ans)

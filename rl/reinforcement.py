@@ -40,7 +40,7 @@ class StateKeeper(Generic[S, A]):
         pass
 
 
-class Critic(Generic[S, A, E]):
+class RewardShaper(Generic[S, A, E]):
     def state_action_reward(self, end_result: E, sa_list: List[StateAction[S, A]]) -> List[float]:
         """
         - end_result: E - End game response
@@ -55,5 +55,10 @@ class Critic(Generic[S, A, E]):
         - s1: S - Next state
         - a: A - Action taken in a step
         - end_result: E - End game response. Ususally use when s1 is None (aka terminated state).
+
+        Return
+        - reward score
+            - positive reward encourage behaviour when you win, 0 when there is a draw
+            - make sure that reward size for each game make sense e.g. how much you win/loss
         """
         pass
