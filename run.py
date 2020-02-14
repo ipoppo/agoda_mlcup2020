@@ -21,10 +21,7 @@ def main():
 
     end_result, sa = play_single_game_debug(PercentAgent(), SmartAgent())
 
-    print('END RESULT')
-    print(end_result)
-
-    critic = WeightedStarScore(end_result_weight=0.9, star_weight=0.1)
+    critic = WeightedStarScore(star_weight=0.1)
     rewards = critic.state_action_reward(end_result, sa)
 
     print('REWARDS')
