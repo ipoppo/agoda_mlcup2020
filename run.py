@@ -10,6 +10,7 @@ from bidgame.framework.playing import play_series
 from rl.arguments import get_args
 from rl.debug import play_single_game_debug
 from rl.model import A2CNet
+from rl.env import BidGameEnv
 
 
 def main():
@@ -43,23 +44,30 @@ def main():
     # print(result_against_smart)
     # print(result_against_smart.iloc[-1])
 
-    # end_result, sa = play_single_game_debug(PercentAgent(), SmartAgent())
+    end_result, sa = play_single_game_debug(PercentAgent(), SmartAgent())
 
-    # # critic = WeightedStarScore(star_weight=0.1)
-    # critic = SimpleScore()
-    # rewards = critic.state_action_reward(end_result, sa)
+    print(sa)
+
+    # critic = WeightedStarScore(star_weight=0.1)
+    critic = SimpleScore()
+    rewards = critic.state_action_reward(end_result, sa)
 
     # print('REWARDS')
     # print(rewards)
 
-    model = A2CNet(10)
+    # model = A2CNet(10)
 
-    print(model)
+    # print(model)
 
-    x = np.array([np.zeros(10), np.ones(10)])
-    y = model(x)
+    # x = np.array([np.zeros(10), np.ones(10)])
+    # y = model(x)
 
-    print(y)
+    # print(y)
+
+    env = BidGameEnv()
+    a = env.action_space.sample()
+
+    print(a)
 
 
 if __name__ == "__main__":
